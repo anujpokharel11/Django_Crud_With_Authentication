@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+</head>
+<body>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {% for fm in form %}
+            {{fm.label_tag}} <br> {{fm}} <br> {{fm.errors|striptags}}
+        {% endfor %}
+        <button type="submit">Signup</button>
+    </form>
+    <a href="{% url 'login' %}">Login</a>
+</body>
+</html>

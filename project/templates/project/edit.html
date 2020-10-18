@@ -1,0 +1,13 @@
+{% extends 'project/base.html' %}
+
+{% block content %}
+<h4>Update New Student</h4>
+<form action="" method="post">
+{% csrf_token %}
+{{form.as_p}}
+<button type="submit" class="btn btn-success" value="Update"></button>
+<a href="{% url 'add_show' %}" class="btn btn-primary">Back</a>
+</form>
+
+
+{% endblock content %}
