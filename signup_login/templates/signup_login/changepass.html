@@ -1,0 +1,12 @@
+{% extends 'project/base.html' %}
+
+{% block content %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {% for fm in form %}
+        {{fm.label_tag}} <br> {{fm}} <br> {{fm.errors|striptags}}
+    {% endfor %}
+    <button type="submit">Submit</button>
+</form>
+{% endblock content %}

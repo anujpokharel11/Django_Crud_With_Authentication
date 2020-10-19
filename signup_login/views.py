@@ -1,7 +1,7 @@
 from django.shortcuts import render,HttpResponseRedirect
 from . forms import SignUpForm
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth import authenticate,login,logout,update_session_auth_hash
 
 
 # Create your views here.
@@ -48,3 +48,22 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/login/')
+
+
+
+
+def user_changepass(request):
+    if request.user.is_authenticated:
+        form = PasswordChangeForm(user=request.user)
+        if request.method == 'POST':
+            form = PasswordChangeForm(user=request.user,data = request.POST)
+            if form.is_valid():
+                form.save()
+                # to update session
+                update_session_auth_hash(request,form.user)
+
+                return HttpResponseRedirect ('/admin/')
+        return render(request,'signup_login/changepass.html',{'form':form})
+
+    else:
+        return HttpResponseRedirect ('/login/')
